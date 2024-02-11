@@ -1,15 +1,10 @@
 name: terraform
 
 on:
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
-
   workflow_dispatch:
 
 jobs:
-  build:
+  destroy:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +29,5 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check
         
-      - name: Terraform Apply
-        run: terraform apply -auto-approve -var="myip=${{ secrets.IP_ADDRESS }}"
+      - name: Terraform destroy
+        run: terraform destroy -auto-approve -var="myip=${{ secrets.IP_ADDRESS }}"

@@ -8,10 +8,16 @@ variable "myip" {
   }
 }
 
-variable "subnet_id" {
+variable "subnet_id_1" {
   type        = string
   default     = ""
-  description = "ID of Subnet in which the web server will run"
+  description = "ID of Subnet 1 in which the web server will run"
+}
+
+variable "subnet_id_2" {
+  type        = string
+  default     = ""
+  description = "ID of Subnet 2 in which the web server will run"
 }
 
 variable "vpc_id" {

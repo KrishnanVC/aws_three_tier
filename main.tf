@@ -17,7 +17,8 @@ terraform {
 module "web_server" {
   source           = "./web-server"
   myip             = var.myip
-  subnet_id        = aws_subnet.public_subnet[0].id
+  subnet_id_1      = aws_subnet.public_subnet[0].id
+  subnet_id_2      = aws_subnet.public_subnet[1].id
   vpc_id           = aws_vpc.terraformVpc.id
   app_server_sg_id = module.app_server.app_server_sg_id
 }

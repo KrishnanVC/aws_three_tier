@@ -8,10 +8,16 @@ variable "myip" {
   }
 }
 
-variable "app_server_subnet_id" {
+variable "app_server_subnet_id_1" {
   type        = string
   default     = ""
-  description = "ID of Subnet in which the app server will run"
+  description = "ID of Subnet 1 in which the app server will run"
+}
+
+variable "app_server_subnet_id_2" {
+  type        = string
+  default     = ""
+  description = "ID of Subnet 2 in which the app server will run"
 }
 
 variable "bastion_subnet_id" {

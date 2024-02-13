@@ -24,10 +24,11 @@ module "web_server" {
 }
 
 module "app_server" {
-  source               = "./app-server"
-  myip                 = var.myip
-  app_server_subnet_id = aws_subnet.private_subnet[0].id
-  bastion_subnet_id    = aws_subnet.public_subnet[0].id
-  vpc_id               = aws_vpc.terraformVpc.id
-  web_server_sg_id     = module.web_server.web_server_sg_id
+  source                 = "./app-server"
+  myip                   = var.myip
+  app_server_subnet_id_1 = aws_subnet.private_subnet[0].id
+  app_server_subnet_id_2 = aws_subnet.private_subnet[1].id
+  bastion_subnet_id      = aws_subnet.public_subnet[0].id
+  vpc_id                 = aws_vpc.terraformVpc.id
+  web_server_sg_id       = module.web_server.web_server_sg_id
 }

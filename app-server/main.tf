@@ -1,13 +1,20 @@
-resource "aws_instance" "tf-app-server-ip" {
-  instance_type          = "t2.micro"
-  ami                    = "ami-0277155c3f0ab2930"
-  key_name               = "web-server-keypair"
-  subnet_id              = var.app_server_subnet_id
-  vpc_security_group_ids = [aws_security_group.tf-app-server-sg.id]
+# resource "aws_instance" "tf-app-server-ip" {
+# instance_type          = "t2.micro"
+# ami                    = "ami-0277155c3f0ab2930"
+# key_name               = "web-server-keypair"
+# subnet_id              = var.app_server_subnet_id
+# vpc_security_group_ids = [aws_security_group.tf-app-server-sg.id]
 
-  tags = {
-    Name = "tf-app-server"
-  }
+# tags = {
+# Name = "tf-app-server"
+# }
+# }
+
+resource "aws_launch_template" "tf_app_launch_template" {
+  name_prefix            = "tf_app_launch_template"
+  vpc_security_group_ids = [aws_security_group.tf-app-server-sg.id]
+  image_id               = "ami-0277155c3f0ab2930"
+  instance_type          = "t2.micro"
 }
 
 resource "aws_security_group" "tf-app-server-sg" {
@@ -30,7 +37,7 @@ resource "aws_vpc_security_group_ingress_rule" "app_allow_ssh_ipv4" {
 
 resource "aws_vpc_security_group_ingress_rule" "app_allow_http_ipv4" {
   security_group_id            = aws_security_group.tf-app-server-sg.id
-  referenced_security_group_id = var.web_server_sg_id
+  referenced_security_group_id = aws_security_group.tf_app_lb_sg
   from_port                    = 80
   ip_protocol                  = "tcp"
   to_port                      = 80

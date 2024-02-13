@@ -4,5 +4,5 @@
 # sudo yum install -y nginx
 # sudo service nginx start
 cd ~
-echo "Hello World" > index.html
+curl -o index.html $APP_SERVER_URL
 python3 -m http.server 80

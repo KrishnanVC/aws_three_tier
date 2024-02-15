@@ -1,15 +1,3 @@
-# resource "aws_instance" "tf-app-server-ip" {
-# instance_type          = "t2.micro"
-# ami                    = "ami-0277155c3f0ab2930"
-# key_name               = "web-server-keypair"
-# subnet_id              = var.app_server_subnet_id
-# vpc_security_group_ids = [aws_security_group.tf-app-server-sg.id]
-
-# tags = {
-# Name = "tf-app-server"
-# }
-# }
-
 resource "aws_launch_template" "tf_app_launch_template" {
   name_prefix            = "tf_app_launch_template"
   vpc_security_group_ids = [aws_security_group.tf-app-server-sg.id]

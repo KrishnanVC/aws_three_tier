@@ -39,11 +39,11 @@ resource "aws_security_group" "tf_app_lb_sg" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "app_lb_allow_http_ipv4" {
-  security_group_id = aws_security_group.tf_app_lb_sg.id
-  cidr_ipv4         = var.web_server_sg_id
-  from_port         = 80
-  ip_protocol       = "tcp"
-  to_port           = 80
+  security_group_id            = aws_security_group.tf_app_lb_sg.id
+  referenced_security_group_id = var.web_server_sg_id
+  from_port                    = 80
+  ip_protocol                  = "tcp"
+  to_port                      = 80
 }
 
 resource "aws_vpc_security_group_egress_rule" "app_lb_allow_http_ipv4" {

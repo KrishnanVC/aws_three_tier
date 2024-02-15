@@ -1,23 +1,16 @@
 resource "aws_launch_template" "tf_launch_template" {
   name_prefix            = "tf_launch_template"
-  user_data              = filebase64("${path.module}/user_data.sh")
   vpc_security_group_ids = [aws_security_group.tf-web-server-sg.id]
   key_name               = "web-server-keypair"
   image_id               = "ami-0277155c3f0ab2930"
   instance_type          = "t2.micro"
+  user_data              = <<EOF
+    #!/bin/bash
+    cd ~
+    curl -o index.html http://${aws_lb.tf_app_load_balancer.dns_name}
+    python3 -m http.server 80
+  EOF
 }
-
-# resource "aws_instance" "tf-web-server-ip" {
-# instance_type          = "t2.micro"
-# ami                    = "ami-0277155c3f0ab2930"
-# key_name               = "web-server-keypair"
-# subnet_id              = var.subnet_id
-# vpc_security_group_ids = [aws_security_group.tf-web-server-sg.id]
-
-# tags = {
-# Name = "tf-web-server"
-# }
-# }
 
 resource "aws_security_group" "tf-web-server-sg" {
   name        = "web_allow_ssh_http"

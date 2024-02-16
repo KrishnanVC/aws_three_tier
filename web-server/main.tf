@@ -4,12 +4,15 @@ resource "aws_launch_template" "tf_launch_template" {
   key_name               = "web-server-keypair"
   image_id               = "ami-0277155c3f0ab2930"
   instance_type          = "t2.micro"
-  user_data              = <<EOF
+  user_data = base64encode(<<EOF
     #!/bin/bash
+    sudo su - ec2-user
     cd ~
-    curl -o index.html http://${aws_lb.tf_app_load_balancer.dns_name}
-    python3 -m http.server 80
+    echo "Hello World from web server\n" > index.html
+    curl http://${var.app_lb_dns_name} >> index.html
+    sudo python3 -m http.server 80
   EOF
+  )
 }
 
 resource "aws_security_group" "tf-web-server-sg" {
@@ -40,7 +43,7 @@ resource "aws_vpc_security_group_ingress_rule" "web_allow_http_ipv4" {
 
 resource "aws_vpc_security_group_egress_rule" "web_allow_http_ipv4" {
   security_group_id            = aws_security_group.tf-web-server-sg.id
-  referenced_security_group_id = var.app_server_sg_id
+  referenced_security_group_id = var.app_lb_sg_id
   from_port                    = 80
   ip_protocol                  = "tcp"
   to_port                      = 80

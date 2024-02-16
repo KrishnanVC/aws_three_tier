@@ -3,7 +3,7 @@ resource "aws_placement_group" "tf_app_placement_group" {
   strategy = "spread"
 }
 
-resource "aws_autoscaling_group" "tf_app_asg" {
+resource "aws_autoscaling_group" "app" {
   name                      = "terraform_app_auto_scaling_group"
   max_size                  = 2
   min_size                  = 1
@@ -24,7 +24,7 @@ resource "aws_autoscaling_group" "tf_app_asg" {
   }
 }
 
-resource "aws_autoscaling_attachment" "tf_app_autoscaling_attachment" {
-  autoscaling_group_name = aws_autoscaling_group.tf_app_asg.id
+resource "aws_autoscaling_attachment" "app" {
+  autoscaling_group_name = aws_autoscaling_group.app.id
   lb_target_group_arn    = aws_lb_target_group.tf_app_target_group.arn
 }

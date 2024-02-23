@@ -45,5 +45,7 @@ module "app_server" {
 }
 
 module "db" {
-  source = "./db"
+  source   = "./db"
+  username = var.username
+  password = var.password
 }

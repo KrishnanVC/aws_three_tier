@@ -8,3 +8,14 @@ variable "myip" {
   }
   sensitive = true
 }
+
+variable "username" {
+  type        = string
+  description = "Username for the Database"
+}
+
+variable "password" {
+  type        = string
+  description = "Password for the Database"
+  sensitive   = true
+}

@@ -9,3 +9,16 @@ variable "app_server_sg_id" {
   default     = ""
   description = "App Server Security Group ID"
 }
+
+variable "username" {
+  type        = string
+  default     = ""
+  description = "Username for Database"
+}
+
+variable "password" {
+  type        = string
+  default     = ""
+  description = "Password for Database"
+  sensitive   = true
+}

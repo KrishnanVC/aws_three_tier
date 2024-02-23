@@ -31,3 +31,11 @@ resource "aws_vpc_security_group_ingress_rule" "app_allow_http_ipv4" {
   ip_protocol                  = "tcp"
   to_port                      = 80
 }
+
+resource "aws_vpc_security_group_egress_rule" "app_allow_postgres" {
+  security_group_id            = aws_security_group.tf-app-server-sg.id
+  referenced_security_group_id = var.db_sg_id
+  from_port                    = 5432
+  ip_protocol                  = "tcp"
+  to_port                      = 5432
+}

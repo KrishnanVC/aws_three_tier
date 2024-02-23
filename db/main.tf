@@ -12,4 +12,20 @@ resource "aws_db_instance" "db" {
   multi_az             = false # Need to change it to true for high availability but not free tier eligible
 }
 
-# TODO: create a security group, check is any other security restrictions need to be made
+resource "aws_security_group" "tf-db-sg" {
+  name        = "allow_postgres_port"
+  description = "Allow Postgres traffic"
+  vpc_id      = var.vpc_id
+
+  tags = {
+    Name = "tf-db-sg"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "db_allow_postgres" {
+  security_group_id            = aws_security_group.tf-db-sg.id
+  referenced_security_group_id = var.app_server_sg_id
+  from_port                    = 5432
+  ip_protocol                  = "tcp"
+  to_port                      = 5432
+}

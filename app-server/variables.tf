@@ -37,3 +37,9 @@ variable "web_server_sg_id" {
   default     = ""
   description = "Web server security group ID"
 }
+
+variable "db_sg_id" {
+  type        = string
+  default     = ""
+  description = "DB security group ID"
+}

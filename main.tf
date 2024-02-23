@@ -14,6 +14,15 @@ terraform {
   }
 }
 
+provider "aws" {
+  default_tags {
+    tags = {
+      Environment = "Dev"
+      Project     = "aws_three_tier"
+    }
+  }
+}
+
 module "web_server" {
   source          = "./web-server"
   myip            = var.myip
@@ -32,4 +41,9 @@ module "app_server" {
   bastion_subnet_id      = aws_subnet.public_subnet[0].id
   vpc_id                 = aws_vpc.terraformVpc.id
   web_server_sg_id       = module.web_server.web_server_sg_id
+  db_sg_id               = module.db.db_sg_id
+}
+
+module "db" {
+  source = "./db"
 }

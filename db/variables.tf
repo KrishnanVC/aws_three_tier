@@ -22,3 +22,15 @@ variable "password" {
   description = "Password for Database"
   sensitive   = true
 }
+
+variable "db_subnet_2_id" {
+  type        = string
+  default     = ""
+  description = "Subnet ID in which the DB will run"
+}
+
+variable "db_subnet_1_id" {
+  type        = string
+  default     = ""
+  description = "Subnet ID in which the DB will run"
+}

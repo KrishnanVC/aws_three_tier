@@ -45,7 +45,11 @@ module "app_server" {
 }
 
 module "db" {
-  source   = "./db"
-  username = var.username
-  password = var.password
+  source           = "./db"
+  username         = var.username
+  password         = var.password
+  db_subnet_1_id   = aws_subnet.private_subnet[0].id
+  db_subnet_2_id   = aws_subnet.private_subnet[1].id
+  vpc_id           = aws_vpc.terraformVpc.id
+  app_server_sg_id = module.app_server.app_server_sg_id
 }

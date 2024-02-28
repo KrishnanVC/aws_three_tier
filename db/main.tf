@@ -8,7 +8,7 @@ resource "aws_db_instance" "db" {
   password               = var.password
   parameter_group_name   = "default.postgres11"
   skip_final_snapshot    = true
-  multi_az               = false # Need to change it to true for high availability but not free tier eligible
+  multi_az               = false # Need to change it to true for high availability
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.tf-db-sg.id]
 }
